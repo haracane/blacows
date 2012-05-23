@@ -1,0 +1,4 @@
+
+PROJECT_HOME=/usr/local/blacows
+KJX_UTIL_HOME=$PROJECT_HOME/kjxutil
+KJXTAG_HOME=$PROJECT_HOME/kjxtag
