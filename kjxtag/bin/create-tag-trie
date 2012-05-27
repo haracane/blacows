@@ -1,0 +1,9 @@
+source $(dirname $0)/../conf/kjxtag-env.sh
+echo "[$(date "+%Y-%m-%d %H:%M:%S")](INFO) $0 $*" >&2
+
+tags_path=$1
+keywords_path=$2
+trie_path=$3
+
+$RUBY_CMD $SCRIPT_DIR/print-tag-id-weights.rb $tags_path $keywords_path \
+  | $KJXUTIL_HOME/bin/create-trie $trie_path

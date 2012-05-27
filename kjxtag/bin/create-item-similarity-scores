@@ -1,0 +1,7 @@
+source $(dirname $0)/../conf/kjxtag-env.sh
+echo "[$(date "+%Y-%m-%d %H:%M:%S")](INFO) $0 $*" >&2
+
+$RUBY_CMD -e '
+  require "kjxtag"
+  Kjxtag::ItemSimilarity.output_item_similarity_scores(ARGV[0], ARGV[1], STDOUT)
+' $*

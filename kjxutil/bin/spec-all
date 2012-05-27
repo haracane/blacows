@@ -1,0 +1,59 @@
+# source $(dirname $0)/../conf/kjxutil.sh
+
+while true;
+do
+	if [ "$1" = '-c' ]; then
+		rspec_options="$rspec_options $1"
+		shift
+	elif [ "$1" = '-f' ]; then
+		rspec_options="$rspec_options $1 $2"
+		shift 2
+	elif [ "$1" = '--separate' ]; then
+		separate_option="$1"
+		shift
+	else
+		break
+	fi
+done
+
+target_dir=$1
+
+if [ "$target_dir" = '' ]; then target_dir=spec; fi
+
+if [ ! -d $target_dir ]; then
+	echo "[$(date '+%Y-%m-%d %H:%M:%S')](ERROR) directory '$target_dir' does not exist" >&2
+  exit 1
+fi
+
+exit_code=0
+
+spec_file_list=""
+
+for spec_file in $(find $target_dir -name "*_spec.rb")
+do
+	spec_file_list="$spec_file_list $spec_file"
+done
+
+
+if [ "$separate_option" = "--separate" ]; then
+	for spec_file in $spec_file_list
+	do
+		spec_command="rspec $rspec_options $spec_file"
+		echo "$spec_command" >&2
+		$spec_command
+		if [ $? != 0 ]; then
+			failure_message="$failure_message
+	Failure: $spec_command"
+			exit_code=1
+		fi
+	done
+	
+	if [ "$exit_code" != 0 ]; then
+		echo "$failure_message"
+	fi
+else
+	spec_command="rspec $rspec_options $spec_file_list"
+	echo "$spec_command" >&2
+	$spec_command
+	exit $?
+fi

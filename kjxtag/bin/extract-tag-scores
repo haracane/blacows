@@ -1,0 +1,9 @@
+source $(dirname $0)/../conf/kjxtag-env.sh
+echo "[$(date "+%Y-%m-%d %H:%M:%S")](INFO) $0 $*" >&2
+
+tx_trie_map_path=$1
+
+tee | $RUBY_CMD -e '
+  require "kjxtag"
+  Kjxtag::TagExtract.extract_tags(STDIN, STDOUT, :tx_trie_map_path=>ARGV[0])
+' $tx_trie_map_path

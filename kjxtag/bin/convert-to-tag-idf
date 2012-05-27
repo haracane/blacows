@@ -1,0 +1,8 @@
+source $(dirname $0)/../conf/kjxtag-env.sh
+echo "[$(date "+%Y-%m-%d %H:%M:%S")](INFO) $0 $*" >&2
+
+tag_count_path=$1
+
+n=$(cat $tag_count_path | cut -f1 | uniq | wc -l)
+
+cat $tag_count_path | $KJXUTIL_HOME/bin/convert-count-to-idf --n $n

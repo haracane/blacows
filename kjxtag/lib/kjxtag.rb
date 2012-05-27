@@ -1,16 +1,24 @@
 # encoding: utf-8
-$KCODE="u"
+$:.push("#{File.dirname(__FILE__)}/../../kjxutil/lib")
 
 require "rubygems"
 require "json"
+require "logger"
+require "awesome_print"
 
+autoload :Kjxutil, "kjxutil"
 autoload :CSV, "csv"
 autoload :MeCab, "MeCab"
 
 
 module Kjxtag
   
+  autoload :ItemSimilarity, "kjxtag/item_similarity"
+  autoload :ItemTagScore, "kjxtag/item_tag_score"
   autoload :Load, "kjxtag/load"
+  autoload :TagExtract, "kjxtag/tag_extract"
+  autoload :TagScore, "kjxtag/tag_score"
+  autoload :WordExtract, "kjxtag/word_extract"
     
   KJXTAG_HOME  = File.dirname(File.dirname(__FILE__))
   BIN_DIR = "#{KJXTAG_HOME}/bin"

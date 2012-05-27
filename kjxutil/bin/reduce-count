@@ -1,0 +1,3 @@
+source $(dirname $0)/../conf/kjxutil-env.sh
+
+tee | $RUBY_CMD $SCRIPT_DIR/reduce-count.rb $*

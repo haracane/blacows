@@ -1,0 +1,5 @@
+source $(dirname $0)/../conf/kjxutil-env.sh
+
+output_path=$1
+
+tee | $RUBY_CMD -e "require 'kjxutil'; Kjxutil::TxUtil.create_trie_map(STDIN, ARGV[0])" $output_path

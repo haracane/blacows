@@ -1,0 +1,7 @@
+source $(dirname $0)/../conf/kjxtag-env.sh
+echo "[$(date "+%Y-%m-%d %H:%M:%S")](INFO) $0 $*" >&2
+
+tee | $RUBY_CMD -e '
+  require "kjxtag"
+  Kjxtag::WordExtract.extract_words(STDIN, STDOUT)
+'
